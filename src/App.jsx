@@ -5,7 +5,7 @@ import Programs from './components/Programs/Programs'
 import Title from './components/Title/Title'
 import About from './components/About/About'
 import Testimonials from './components/Testimonials/Testimonials'
-import Contact from './Components/Contact/Contact'
+import Contact from './components/Contact/Contact'
 import Footer from './components/Footer/Footer'
 import VideoPlayer from './components/VideoPlayer/VideoPlayer'
 
