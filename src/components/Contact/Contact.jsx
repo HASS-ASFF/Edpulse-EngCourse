@@ -13,16 +13,20 @@ const Contact = () => {
 
     const [result, setResult] = React.useState("");
 
+    let count = 0;
+
     useEffect(() => {
       const savedName = localStorage.getItem('name') || '';
       const savedEmail = localStorage.getItem('email') || '';
       const savedPhone = localStorage.getItem('phone') || '';
       const savedMessage = localStorage.getItem('message') || '';
+      /*const savedvisit = localStorage.getItem("count") || '';*/
   
       document.querySelector('input[name="name"]').value = savedName;
       document.querySelector('input[name="email"]').value = savedEmail;
       document.querySelector('input[name="phone"]').value = savedPhone;
       document.querySelector('textarea[name="message"]').value = savedMessage;
+      /*document.querySelector('textarea[name="count"]').value = savedvisit;*/
     }, []);
   
     const handleInputChange = (event) => {
@@ -41,6 +45,7 @@ const Contact = () => {
         if (response.ok) {
           console.log("Partial data sent to Google Sheets");
           localStorage.setItem('hasReturned', true); 
+          localStorage.setItem('countvisit',count++);
         } else {
           console.log("Failed to send partial data");
         }
