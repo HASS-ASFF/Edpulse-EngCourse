@@ -8,8 +8,8 @@ import white_arrow from '../../assets/white-arrow.png'
 
 const Contact = () => {
 
-    const WebhookUrlInCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZhNTUzYzUxMzYi_pc";
-    const WebhookUrlCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZiNTUzNjUxMzEi_pc"
+    const WebhookUrlInCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0Mzc1MjY0NTUzZDUxMzMi_pc";
+    const WebhookUrlCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0Mzc1MjY0NTUzZDUxMzIi_pc";
 
     const [result, setResult] = React.useState("");
     let count = 0;
