@@ -12,8 +12,8 @@ const Contact = () => {
     const WebhookUrlCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZiNTUzNjUxMzEi_pc"
 
     const [result, setResult] = React.useState("");
-
     let count = 0;
+
 
     useEffect(() => {
       const savedName = localStorage.getItem('name') || '';
@@ -44,7 +44,7 @@ const Contact = () => {
       .then(response => {
         if (response.ok) {
           console.log("Partial data sent to Google Sheets");
-          localStorage.setItem('hasReturned', true); 
+          localStorage.setItem('hasReturned', "YES"); 
           /*localStorage.setItem('countvisit',count++);*/
         } else {
           console.log("Failed to send partial data");
@@ -61,6 +61,25 @@ const Contact = () => {
   
       return name !== '' && email !== '' && message !== '' && phone !== '';
     };
+
+    const countVisit = () => {
+      let count = localStorage.getItem("count");
+      
+      if (count === null) {
+        count = 0;
+      } else {
+        count = parseInt(count);
+        if (isNaN(count)) {
+          count = 0; 
+        }
+      }
+      
+      count += 1;
+      
+      localStorage.setItem("count", count);
+      
+      return count;
+    };
   
     const onSubmit = async (event) => {
       event.preventDefault();
@@ -70,6 +89,10 @@ const Contact = () => {
   
       let userId = localStorage.getItem('userId');
       let hasReturned = localStorage.getItem('hasReturned');
+      const count = countVisit();
+      formData.append("number_submission", count);
+      
+      
       if (!userId) {
         userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         localStorage.setItem('userId', userId); 
