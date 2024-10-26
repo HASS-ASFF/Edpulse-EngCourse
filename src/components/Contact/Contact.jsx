@@ -60,6 +60,8 @@ const Contact = () => {
     const onSubmit = async (event) => {
       event.preventDefault();
       setResult("Sending...");
+
+      formData.append("returning", localStorage.getItem('hasReturned') ? "Yes" : "No");
   
       const formData = new FormData(event.target);
   
