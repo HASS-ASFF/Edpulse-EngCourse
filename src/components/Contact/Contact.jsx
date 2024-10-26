@@ -8,8 +8,8 @@ import white_arrow from '../../assets/white-arrow.png'
 
 const Contact = () => {
 
-    const WebhookUrlCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZhNTUzYzUxMzYi_pc";
-    const WebhookUrlInCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZiNTUzNjUxMzEi_pc"
+    const WebhookUrlInCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZhNTUzYzUxMzYi_pc";
+    const WebhookUrlCompleteData = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzNTA0MzY1MjZiNTUzNjUxMzEi_pc"
 
     const [result, setResult] = React.useState("");
 
@@ -26,7 +26,7 @@ const Contact = () => {
       document.querySelector('input[name="email"]').value = savedEmail;
       document.querySelector('input[name="phone"]').value = savedPhone;
       document.querySelector('textarea[name="message"]').value = savedMessage;
-      /*document.querySelector('textarea[name="count"]').value = savedvisit;*/
+      
     }, []);
   
     const handleInputChange = (event) => {
@@ -35,7 +35,7 @@ const Contact = () => {
   
     const captureIncompleteData = (userId, formData) => {
       
-      formData.append("returning", localStorage.getItem('hasReturned') ? "Yes" : "No");
+      formData.append("returning",localStorage.getItem('hasReturned'));
   
       fetch(WebhookUrlInCompleteData, {
         method: "POST",
@@ -45,7 +45,7 @@ const Contact = () => {
         if (response.ok) {
           console.log("Partial data sent to Google Sheets");
           localStorage.setItem('hasReturned', true); 
-          localStorage.setItem('countvisit',count++);
+          /*localStorage.setItem('countvisit',count++);*/
         } else {
           console.log("Failed to send partial data");
         }
@@ -65,17 +65,21 @@ const Contact = () => {
     const onSubmit = async (event) => {
       event.preventDefault();
       setResult("Sending...");
-
-      formData.append("returning", localStorage.getItem('hasReturned') ? "Yes" : "No");
   
       const formData = new FormData(event.target);
   
       let userId = localStorage.getItem('userId');
+      let hasReturned = localStorage.getItem('hasReturned');
       if (!userId) {
         userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         localStorage.setItem('userId', userId); 
       }
       formData.append("user_id", userId); 
+      if(!hasReturned){
+        formData.append("returning","No");
+      }
+      formData.append("returning",hasReturned);
+      
   
       if (isFormComplete()) {
         const response = await fetch(WebhookUrlCompleteData, {
